@@ -1,0 +1,40 @@
+# 2020_5-25_CodePractice
+
+//用两个栈实现队列
+//  用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
+
+//【题目解析】：
+//话不多说，当时讲栈的课后练习题之一，经典问题，当时没做的童鞋一定现在要做，当时完成的童鞋再回顾
+//下自己当时的思路，你能写出更简单思路更清晰的代码吗？
+//【解题思路】：
+//栈1用来作入队列
+//栈2用来出队列，当栈2为空时，栈1全部出栈到栈2,栈2再出栈（即出队列）
+import java.util.Stack;
+
+public class day5_02 {
+    Stack<Integer> stack1=new Stack<>();
+    Stack<Integer> stack2=new Stack<>();
+    private  void push(int node){
+        stack1.push(node);
+    }
+    private  int pop(){
+        if(stack1.isEmpty()&&stack2.isEmpty()){
+            throw new RuntimeException("Queue is Empty！");
+        }
+        if(stack2.isEmpty()){
+            while (!stack1.isEmpty()){
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.pop();
+    }
+    public static void main(String[] args) {
+        int[] a={2,4,1,52,1};
+        day5_02 d=new day5_02();
+        for (int i=0;i<a.length;i++){
+            d.push(a[i]);
+            System.out.println(d.pop());
+        }
+
+    }
+}
